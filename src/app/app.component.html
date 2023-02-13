@@ -1,0 +1,84 @@
+<label for="personFind">Введите id человека </label>
+<input type="text" name="personFind" id="personFind" [(ngModel)]="personFind">
+<button (click)="findPersonal()" style="cursor: pointer" >Искать</button>
+<div *ngIf="errorFind" style="color:red;">Введены не верные данные</div>
+<div *ngIf="addPersonAdd">
+  <label for="name">Введите имя </label><br>
+  <input type="text" name="name" id="name" [(ngModel)]="personSave.firstName"><br>
+  <label for="secondName">Введите фамилию </label><br>
+  <input type="text" name="secondName" id="secondName" [(ngModel)]="personSave.secondName" ><br>
+  <label for="otchestro">Введите отчество </label><br>
+  <input type="text" name="otchestro" id="otchestro" [(ngModel)]="personSave.patronymicName" ><br>
+  <label for="serial">Введите серию документа </label><br>
+  <input type="text" name="serial" id="serial" [(ngModel)]="personSave.serialDocument"  ><br>
+  <label for="numberDoc">Введите нормер документа </label><br>
+  <input type="text" name="numberDoc" id="numberDoc" [(ngModel)]="personSave.numberDocument"  ><br>
+  <select id="documentPerson"  [(ngModel)]="personSave.document"  [compareWith]="compare" name="documentPerson">
+    <option *ngFor="let et of documents$ |async" [ngValue]="et" >
+      {{et.typeDocument}}
+  </option>
+</select>
+<button (click)="addPerson()" style="cursor: pointer" >Добавить</button>
+</div>
+<br>
+<button (click)="addPersonEditebl()" *ngIf="addPersonFrom" style="cursor: pointer" >Добавить</button>
+
+<div *ngIf="addPersonEdit">
+  <label for="name">Введите имя </label><br>
+  <input type="text" name="name" id="name" [(ngModel)]="personLoad.firstName"><br>
+  <label for="secondName">Введите фамилию </label><br>
+  <input type="text" name="secondName" id="secondName" [(ngModel)]="personLoad.secondName" ><br>
+  <label for="otchestro">Введите отчество </label><br>
+  <input type="text" name="otchestro" id="otchestro" [(ngModel)]="personLoad.patronymicName" ><br>
+  <label for="serial">Введите серию документа </label><br>
+  <input type="text" name="serial" id="serial" [(ngModel)]="personLoad.serialDocument"  ><br>
+  <label for="numberDoc">Введите нормер документа </label><br>
+  <input type="text" name="numberDoc" id="numberDoc" [(ngModel)]="personLoad.numberDocument"  ><br>
+  <select id="documentPerson"  [(ngModel)]="personLoad.document" [compareWith]="compare"  name="documentPerson"><br>
+    <option *ngFor="let et of documents$ |async" [ngValue]="et" >
+      {{et.typeDocument}}
+  </option>
+</select><br>
+<button (click)="editPerson()" style="cursor: pointer" >Редактировать</button>
+</div>
+
+
+<table width = "20%">
+  <thead>
+      <tr>
+          <th></th>
+          <th>Имя</th>
+          <th>Фамилия</th>
+          <th>Отчество</th>
+          <th>Серия</th>
+          <th>Номер</th>
+          <th>Документ</th>
+      </tr>
+  </thead>
+  <tbody *ngIf="personLoad">
+  <tr style="cursor: pointer">
+      <td width = "3%">
+        <button (click)="selectPersonal()" style="cursor: pointer" >Редактировать</button>
+      </td>
+      <td width = "3%">
+          {{personLoad.firstName}}
+      </td>
+      <td>
+        {{personLoad.secondName}}
+      </td>
+      <td>
+          {{personLoad.patronymicName}}
+      </td>
+      <td>
+          {{personLoad.serialDocument}}
+      </td>
+      <td>
+        {{personLoad.numberDocument}}
+      </td>
+      <td>
+        {{personLoad.document.typeDocument}}
+      </td>
+  </tr>
+  </tbody>
+</table>
+<router-outlet></router-outlet>
